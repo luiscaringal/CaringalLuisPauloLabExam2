@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         int exam1 = Integer.parseInt(tExam1.getText().toString());
         int exam2 = Integer.parseInt(tExam2.getText().toString());
         int ave = (exam1 + exam2)/2;
+        String average = String.valueOf(ave);
 
         String statement = "Your average is ";
         int result;
@@ -47,13 +48,13 @@ public class MainActivity extends AppCompatActivity {
             fos = new FileOutputStream(file);
             fos.write(fname.getBytes());
             fos.write(lname.getBytes());
-            fos.write(ave);
+            fos.write(average.getBytes());
             fos.close();
             fin = new FileInputStream(file);
             buffer.append(statement);
-//            while((result = fin.read())!=1){
-//                buffer.append((int)result);
-//            }
+            while((result = fin.read())!=1){
+                buffer.append((char)result);
+            }
             tResult.setText(buffer.toString());
             Toast.makeText(this, "Success", Toast.LENGTH_LONG).show();
         }
