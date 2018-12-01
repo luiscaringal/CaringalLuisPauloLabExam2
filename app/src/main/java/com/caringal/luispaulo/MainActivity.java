@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
             fos.close();
             fin = new FileInputStream(file);
             buffer.append(statement);
-            while((result = fin.read())!=1){
+            while((result = fin.read())!= -1){
                 buffer.append((char)result);
             }
             tResult.setText(buffer.toString());
