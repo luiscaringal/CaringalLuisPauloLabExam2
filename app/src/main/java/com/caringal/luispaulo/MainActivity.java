@@ -27,49 +27,38 @@ public class MainActivity extends AppCompatActivity {
         tResult = findViewById(R.id.result);
     }
 
-    public void saveExternal(View v){
+    public void getAve(View v){
         File folder = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
         File file = new File(folder, "ExamAverageExternal.txt");
+        FileOutputStream fos = null;
+        FileInputStream fin = null;
 
         String fname = tFirstName.getText().toString();
         String lname = tLastName.getText().toString();
         int exam1 = Integer.parseInt(tExam1.getText().toString());
         int exam2 = Integer.parseInt(tExam2.getText().toString());
         int ave = (exam1 + exam2)/2;
-        FileOutputStream fos = null;
+
+        String statement = "Your average is ";
+        int result;
+        StringBuffer buffer = new StringBuffer();
+
         try{
             fos = new FileOutputStream(file);
             fos.write(fname.getBytes());
             fos.write(lname.getBytes());
             fos.write(ave);
-            Toast.makeText(this, "Data saved in sd card", Toast.LENGTH_LONG).show();
             fos.close();
-            loadExternal();
-        }
-        catch(Exception e){
-            Toast.makeText(this, "Error writing on sd card", Toast.LENGTH_LONG).show();
-        }
-    }
-
-    public void loadExternal(){
-        File folder = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
-        File file = new File(folder, "ExamAverageExternal.txt");
-        FileInputStream fin = null;
-
-        String statement = "Your average is ";
-        int result;
-        StringBuffer buffer = new StringBuffer();
-        try{
             fin = new FileInputStream(file);
             buffer.append(statement);
-            while((result = fin.read())!=1){
-                buffer.append((char)result);
-            }
+//            while((result = fin.read())!=1){
+//                buffer.append((int)result);
+//            }
             tResult.setText(buffer.toString());
             Toast.makeText(this, "Success", Toast.LENGTH_LONG).show();
         }
         catch(Exception e){
-            Toast.makeText(this, "Error reading", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Unsuccessful", Toast.LENGTH_LONG).show();
         }
     }
 }
